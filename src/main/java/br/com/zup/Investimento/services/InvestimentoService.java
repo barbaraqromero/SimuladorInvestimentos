@@ -1,7 +1,9 @@
 package br.com.zup.Investimento.services;
 
+import br.com.zup.Investimento.Risco;
 import br.com.zup.Investimento.dtos.InvestimentoDTO;
 import br.com.zup.Investimento.dtos.RetornoDTO;
+import br.com.zup.Investimento.exceptions.ValorInvalidoException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,15 +34,23 @@ public class InvestimentoService {
     return valorTotal;
   }
 
+  public void validarAltoRisco(InvestimentoDTO investimentoDTO) {
+    if (investimentoDTO.getValorInvestido() < 5000 & investimentoDTO.getRisco().equals(Risco.ALTO)){
+      throw new ValorInvalidoException("Esse tipo de investimento permite apenas valores a partir de R$ 5000.");
+    }
+  }
+
 
   public RetornoDTO simularInvestimento(InvestimentoDTO investimento) {
     RetornoDTO retornoDTO = new RetornoDTO();
     retornoDTO.setValorInvestido(investimento.getValorInvestido());
+    validarAltoRisco(investimento);
     retornoDTO.setValorLucro(calcularLucro(investimento));
     retornoDTO.setValorTotal(calcularValorTotal(investimento));
     inserirInvestimento(investimento);
     return retornoDTO;
-
   }
+
+
 
 }
