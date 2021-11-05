@@ -43,8 +43,8 @@ public class InvestimentoService {
 
   public RetornoDTO simularInvestimento(InvestimentoDTO investimento) {
     RetornoDTO retornoDTO = new RetornoDTO();
-    retornoDTO.setValorInvestido(investimento.getValorInvestido());
     validarAltoRisco(investimento);
+    retornoDTO.setValorInvestido(investimento.getValorInvestido());
     retornoDTO.setValorLucro(calcularLucro(investimento));
     retornoDTO.setValorTotal(calcularValorTotal(investimento));
     inserirInvestimento(investimento);
