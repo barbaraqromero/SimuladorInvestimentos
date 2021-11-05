@@ -15,12 +15,6 @@ public class InvestimentoController {
   @Autowired
   private InvestimentoService investimentoService;
 
-  /*@PutMapping
-  public InvestimentoDTO inserirInvestimento(@RequestBody @Valid InvestimentoDTO investimento) {
-    investimentoService.inserirInvestimento(investimento);
-    return investimento;
-  }*/
-
   @PutMapping
   public RetornoDTO simularInvestimento(@RequestBody @Valid InvestimentoDTO investimento){
     return investimentoService.simularInvestimento(investimento);

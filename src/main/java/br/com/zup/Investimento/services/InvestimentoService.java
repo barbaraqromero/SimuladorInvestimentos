@@ -11,9 +11,8 @@ import java.util.List;
 public class InvestimentoService {
   List<InvestimentoDTO> investimentos = new ArrayList<>();
 
-  public InvestimentoDTO inserirInvestimento(InvestimentoDTO investimento) {
+  public void inserirInvestimento(InvestimentoDTO investimento) {
     investimentos.add(investimento);
-    return investimento;
 
   }
 
