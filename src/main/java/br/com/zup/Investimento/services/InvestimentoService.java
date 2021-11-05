@@ -35,7 +35,7 @@ public class InvestimentoService {
   }
 
   public void validarAltoRisco(InvestimentoDTO investimentoDTO) {
-    if (investimentoDTO.getValorInvestido() < 5000 & investimentoDTO.getRisco().equals(Risco.ALTO)){
+    if (investimentoDTO.getValorInvestido() < 5000 & investimentoDTO.getRisco().equals(Risco.ALTO)) {
       throw new ValorInvalidoException("Esse tipo de investimento permite apenas valores a partir de R$ 5000.");
     }
   }
@@ -50,7 +50,6 @@ public class InvestimentoService {
     inserirInvestimento(investimento);
     return retornoDTO;
   }
-
 
 
 }
