@@ -1,7 +1,7 @@
 package br.com.zup.Investimento.services;
 
-import br.com.zup.Investimento.Risco;
 import br.com.zup.Investimento.dtos.InvestimentoDTO;
+import br.com.zup.Investimento.dtos.RetornoDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,20 +17,31 @@ public class InvestimentoService {
 
   }
 
-  public double calcularTaxaCumulativa(int periodoDeAplicacao, Risco risco) {
-    double taxasCumulativas = Math.pow((1 + risco.getTaxas()), periodoDeAplicacao);
+  public double calcularTaxaCumulativa(InvestimentoDTO investimento) {
+    double taxasCumulativas = Math.pow((1 + investimento.getRisco().getTaxas()), investimento.getPeriodoDeAplicacao());
     return taxasCumulativas;
 
   }
 
-  public double calcularValorIntegral(double valorInvestido, int periodoDeAplicacao, Risco risco) {
-    double valorIntegral = valorInvestido * calcularTaxaCumulativa(periodoDeAplicacao, risco);
-    return valorIntegral;
+  public double calcularLucro(InvestimentoDTO investimento) {
+    double lucro = calcularValorTotal(investimento) - investimento.getValorInvestido();
+    return lucro;
   }
 
-  public double calcularLucro(double valorInvestido, double valorIntegral) {
-    double lucro = valorIntegral - valorInvestido;
-    return lucro;
+  public double calcularValorTotal(InvestimentoDTO investimento) {
+    double valorTotal = investimento.getValorInvestido() * calcularTaxaCumulativa(investimento);
+    return valorTotal;
+  }
+
+
+  public RetornoDTO simularInvestimento(InvestimentoDTO investimento) {
+    RetornoDTO retornoDTO = new RetornoDTO();
+    retornoDTO.setValorInvestido(investimento.getValorInvestido());
+    retornoDTO.setValorLucro(calcularLucro(investimento));
+    retornoDTO.setValorTotal(calcularValorTotal(investimento));
+    inserirInvestimento(investimento);
+    return retornoDTO;
+
   }
 
 }
